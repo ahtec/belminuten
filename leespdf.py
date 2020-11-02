@@ -1,19 +1,14 @@
 #!/usr/bin/python
 import datetime
 import os
+import PyPDF2
+#  dez prg leest in de directory alle pdf en die eindigen op pdf
+# in elke pdf leest i de gebelde minuten , sommeert per pdf
+#  g.w. doets  2 nov 2020
 
 #install pyDF2
 # /Users/gerard/Library/Python/2.7/bin/pip install PyPDF2
 
-# importing all the required modules
-import PyPDF2
-
-# creating an object 
-#file = open('factuur_september_2020.pdf', 'rb')
-#file = open('factuur_februari_2020.pdf', 'rb')
-
-#file = open('/Users/gerard/Downloads/factuur_februari_2020.pdf', 'rb')#
-#file = open('/Users/gerard/Downloads/factuur_maart_2020.pdf', 'rb')
 spitText = ""
 for file in os.listdir("/Users/gerard/Documents/facturen/ben/"):
 	if (file.endswith("_2020.pdf")) or (file.endswith("_2019.pdf")):
@@ -21,7 +16,6 @@ for file in os.listdir("/Users/gerard/Documents/facturen/ben/"):
 			splitText = "-2020"
 		if (file.endswith("_2019.pdf")):
 			splitText = "-2019"
-		
 
 		fileObject = open(os.path.join("/Users/gerard/Documents/facturen/ben/", file),'rb')
 		fileReader = PyPDF2.PdfFileReader(fileObject)
@@ -60,8 +54,8 @@ for file in os.listdir("/Users/gerard/Documents/facturen/ben/"):
 						totaalMinuten = totaalMinuten +1
 						totaalSeconden = totaalSeconden - 60	
 					totaalMinuten = totaalMinuten + minuten 
-#####				print(woordArray[0]  + " " + str(totaalMinuten) + " " + woordArray[1] + " " + str(totaalSeconden) )	
-		print(str(totaalMinuten) + " minuten     " + str(totaalSeconden) + " seconden ")
-	print(os.path.join("/Users/gerard/Documents/facturen/ben/", file))
+#####				print(woordArray[0]  + " :  " + str(totaalMinuten) + " " + woordArray[1] + " " + str(totaalSeconden) )	
+		print(str(totaalMinuten) + " :   " + str(totaalSeconden) + "    in    " + file)
+#####	print(os.path.join("/Users/gerard/Documents/facturen/ben/", file))
 
 
