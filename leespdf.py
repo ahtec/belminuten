@@ -4,12 +4,37 @@ import os
 import PyPDF2
 #  dez prg leest in de directory alle pdf en die eindigen op pdf
 # in elke pdf leest i de gebelde minuten , sommeert per pdf
-#  g.w. doets  2 nov 2020
+#  g.w. doets  7 nov 2020
 
 #install pyDF2
 # /Users/gerard/Library/Python/2.7/bin/pip install PyPDF2
 
+def maandnummer(i):
+        switcher={
+                'januari':1,
+                'februari':2,
+                'maart':3,
+                'april':4,
+                'mei':5,
+                'juni':6,
+                'juli':7,
+                'augustus':8,
+                'september':9,
+                'oktober':10,
+                'november':11,
+                'december':12
+             }
+	return( switcher.get(i))
+
+def jaarmaand (erin):
+	erinWoordenArray1 = erin.split(".")
+	erinWoordenArray2 = erinWoordenArray1[0].split("_")
+	return (erinWoordenArray2[2] +  '{:>3}'.format(maandnummer(erinWoordenArray2[1])))
+
+
+
 spitText = ""
+outputArray=[]
 for file in os.listdir("/Users/gerard/Documents/facturen/ben/"):
 	if (file.endswith("_2020.pdf")) or (file.endswith("_2019.pdf")):
 		if (file.endswith("_2020.pdf")):
@@ -55,7 +80,14 @@ for file in os.listdir("/Users/gerard/Documents/facturen/ben/"):
 						totaalSeconden = totaalSeconden - 60	
 					totaalMinuten = totaalMinuten + minuten 
 #####				print(woordArray[0]  + " :  " + str(totaalMinuten) + " " + woordArray[1] + " " + str(totaalSeconden) )	
-		print(str(totaalMinuten) + " :   " + str(totaalSeconden) + "    in    " + file)
+
+		outputArray.append(jaarmaand(file)+ " " + '{:>5}'.format(totaalMinuten) + ":" + '{:>2}'.format(totaalSeconden) + " in " + file)
+outputArray.sort()
+for outputregel in outputArray:
+	print(outputregel)
+
+
+####		print(jaarmaand(file)+ " " + str(totaalMinuten) + " :   " + str(totaalSeconden) + "    in    " + file)
 #####	print(os.path.join("/Users/gerard/Documents/facturen/ben/", file))
 
 
